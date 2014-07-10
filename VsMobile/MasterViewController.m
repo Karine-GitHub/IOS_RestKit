@@ -10,6 +10,7 @@
 
 #import "DetailViewController.h"
 
+
 @interface MasterViewController () {
     NSMutableArray *_objects;
 }
@@ -26,15 +27,36 @@
     [super awakeFromNib];
 }
 
+- (void)configureRestKit
+{
+    Application *app = [[Application alloc]init];
+    Page *page = [[Page alloc] init];
+    
+    // Initialize connection to WebApi
+    NSURL *webApi = [NSURL URLWithString:@"http://localhost:1130/api"];
+    AFHTTPClient *client = [[AFHTTPClient alloc] initWithBaseURL:webApi];
+    
+    // Interface for interacting with services of RestKit framework
+    RKObjectManager *objManager = [[RKObjectManager alloc] initWithHTTPClient:client];
+    
+    // Set application mapping
+    RKObjectMapping *applicationMapping = [RKObjectMapping mappingForClass:[Application class]];
+    [applicationMapping addAttributeMappingsFromDictionary:[app setApplication]];
+    
+    // Get json file & map Application object
+    RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:applicationMapping method:RKRequestMethodGET pathPattern:@"/application" keyPath:@"response.application" statusCodes:[NSIndexSet indexSetWithIndex:200]];
+    [objManager addResponseDescriptor:responseDescriptor];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
 
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-    self.navigationItem.rightBarButtonItem = addButton;
     self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+    
+    [self configureRestKit];
+    [self insertNewObject];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -43,7 +65,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)insertNewObject:(id)sender
+- (void)insertNewObject
 {
     if (!_objects) {
         _objects = [[NSMutableArray alloc] init];

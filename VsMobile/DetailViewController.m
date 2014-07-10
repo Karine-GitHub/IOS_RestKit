@@ -35,8 +35,17 @@
 {
     // Update the user interface for the detail item.
 
+    NSString *msg = @"<html><center><font color='orange'>There is no content</font></center></html>";
+    
     if (self.detailItem) {
-        self.detailDescriptionLabel.text = [self.detailItem description];
+        if ([[self.detailItem objectForKey:@"HtmlContent"] isKindOfClass:[NSNull class]]) {
+            [self.content loadHTMLString:msg baseURL:nil];
+        }
+        else {
+            [self.content loadHTMLString:[self.detailItem objectForKey:@"HtmlContent"] baseURL:nil];
+        }
+        
+        self.navigationItem.title = [self.detailItem objectForKey:@"Name"];
     }
 }
 

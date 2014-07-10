@@ -7,6 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <RestKit/RestKit.h>
+#import <AFNetworking/AFNetworking.h>
+#import <RKValueTransformers/RKValueTransformers.h>
+
+#import "Application.h"
+
 
 @class DetailViewController;
 
