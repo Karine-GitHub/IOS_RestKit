@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		84DF0729196FB16E006C9111 /* libPods-AFNetworking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E30F78196ECB5F000D40A2 /* libPods-AFNetworking.a */; };
+		84DF072A196FB16E006C9111 /* libPods-RestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E30F7E196ECB5F000D40A2 /* libPods-RestKit.a */; };
+		84DF072B196FB16E006C9111 /* libPods-RKValueTransformers.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E30F7C196ECB5F000D40A2 /* libPods-RKValueTransformers.a */; };
+		84DF072C196FB198006C9111 /* libPods-ISO8601DateFormatterValueTransformer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E30F7A196ECB5F000D40A2 /* libPods-ISO8601DateFormatterValueTransformer.a */; };
+		84DF072D196FB198006C9111 /* libPods-SOCKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E30F80196ECB5F000D40A2 /* libPods-SOCKit.a */; };
+		84DF072E196FB198006C9111 /* libPods-TransitionKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E30F82196ECB5F000D40A2 /* libPods-TransitionKit.a */; };
 		84E30EF9196EB6DC000D40A2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E30EF8196EB6DC000D40A2 /* Foundation.framework */; };
 		84E30EFB196EB6DC000D40A2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E30EFA196EB6DC000D40A2 /* CoreGraphics.framework */; };
 		84E30EFD196EB6DC000D40A2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E30EFC196EB6DC000D40A2 /* UIKit.framework */; };
@@ -32,6 +38,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		84DF0730196FB1AC006C9111 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 84E30F6B196ECB5F000D40A2 /* Pods.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = DD75AB13E79043759B608F52;
+			remoteInfo = "Pods-ISO8601DateFormatterValueTransformer";
+		};
+		84DF0732196FB1AC006C9111 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 84E30F6B196ECB5F000D40A2 /* Pods.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = DC0FEBAF9C614605938AD1C4;
+			remoteInfo = "Pods-SOCKit";
+		};
+		84DF0734196FB1AC006C9111 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 84E30F6B196ECB5F000D40A2 /* Pods.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = A8FB5F9A94FE4107879DB4A1;
+			remoteInfo = "Pods-TransitionKit";
+		};
 		84E30F21196EB6DC000D40A2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 84E30EED196EB6DC000D40A2 /* Project object */;
@@ -159,6 +186,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84DF072C196FB198006C9111 /* libPods-ISO8601DateFormatterValueTransformer.a in Frameworks */,
+				84DF072D196FB198006C9111 /* libPods-SOCKit.a in Frameworks */,
+				84DF072E196FB198006C9111 /* libPods-TransitionKit.a in Frameworks */,
+				84DF0729196FB16E006C9111 /* libPods-AFNetworking.a in Frameworks */,
+				84DF072A196FB16E006C9111 /* libPods-RestKit.a in Frameworks */,
+				84DF072B196FB16E006C9111 /* libPods-RKValueTransformers.a in Frameworks */,
 				84E30F6A196ECA21000D40A2 /* CFNetwork.framework in Frameworks */,
 				84E30EFB196EB6DC000D40A2 /* CoreGraphics.framework in Frameworks */,
 				84E30EFD196EB6DC000D40A2 /* UIKit.framework in Frameworks */,
@@ -303,6 +336,9 @@
 			buildRules = (
 			);
 			dependencies = (
+				84DF0731196FB1AC006C9111 /* PBXTargetDependency */,
+				84DF0733196FB1AC006C9111 /* PBXTargetDependency */,
+				84DF0735196FB1AC006C9111 /* PBXTargetDependency */,
 				84E30F88196ECC52000D40A2 /* PBXTargetDependency */,
 				84E30F86196ECC2C000D40A2 /* PBXTargetDependency */,
 				84E30F84196ECC29000D40A2 /* PBXTargetDependency */,
@@ -504,6 +540,21 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		84DF0731196FB1AC006C9111 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-ISO8601DateFormatterValueTransformer";
+			targetProxy = 84DF0730196FB1AC006C9111 /* PBXContainerItemProxy */;
+		};
+		84DF0733196FB1AC006C9111 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-SOCKit";
+			targetProxy = 84DF0732196FB1AC006C9111 /* PBXContainerItemProxy */;
+		};
+		84DF0735196FB1AC006C9111 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-TransitionKit";
+			targetProxy = 84DF0734196FB1AC006C9111 /* PBXContainerItemProxy */;
+		};
 		84E30F22196EB6DC000D40A2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 84E30EF4196EB6DC000D40A2 /* VsMobile */;

@@ -10,8 +10,8 @@
 
 @implementation Application
 
--(NSMutableDictionary *)setApplication {
-    NSMutableDictionary *myApplication = @{@"Pages": self.pagesList,
+-(NSDictionary *)setApplication {
+    NSDictionary *myApplication = @{@"Pages": self.pagesList,
                                            @"Id": self.guidID,
                                            @"Name": self.name,
                                            @"Description": self.description,
