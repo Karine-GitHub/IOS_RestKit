@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "Template.h"
 
-@interface Page : NSObject
+@interface Page : NSMutableArray
 
 @property (nonatomic, strong) NSString *templateName;
 @property (nonatomic, strong) NSString *name;
@@ -21,6 +21,6 @@
 
 @property (nonatomic, strong) Template *template;
 
--(NSMutableDictionary *)setPage:(NSMutableArray *)allPages :(NSIndexPath *)index;
+-(NSMutableArray *) getAllPages:(NSMutableArray *) ofApp;
 
 @end

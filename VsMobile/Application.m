@@ -11,7 +11,7 @@
 @implementation Application
 
 -(NSDictionary *)setApplication {
-    NSDictionary *myApplication = @{@"Pages": self.pagesList,
+    NSDictionary *myApplication = @{@"Pages": self.allPages,
                                            @"Id": self.guidID,
                                            @"Name": self.name,
                                            @"Description": self.description,

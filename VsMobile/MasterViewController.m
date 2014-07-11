@@ -13,6 +13,9 @@
 
 @interface MasterViewController () {
     NSMutableArray *_objects;
+    Application *app;
+    Page *allPages;
+    NSDictionary *page;
 }
 @end
 
@@ -29,8 +32,12 @@
 
 - (void)configureRestKit
 {
-    Application *app = [[Application alloc]init];
-    Page *page = [[Page alloc] init];
+    if (!app) {
+        app = [[Application alloc]init];
+    }
+    if (!allPages) {
+        allPages = [[Page alloc] init];
+    }
     
     // Initialize connection to WebApi
     NSURL *webApi = [NSURL URLWithString:@"http://localhost:1130/api"];
@@ -43,9 +50,37 @@
     RKObjectMapping *applicationMapping = [RKObjectMapping mappingForClass:[Application class]];
     [applicationMapping addAttributeMappingsFromDictionary:[app setApplication]];
     
+    // Set pages mapping
+    RKObjectMapping *pagesMapping = [RKObjectMapping mappingForClass:[Page class]];
+    [pagesMapping addAttributeMappingsFromArray:[allPages getAllPages:[[app setApplication] objectForKey:@"Pages"]]];
+    
+    // define relationship between Application et Pages
+    [applicationMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"Pages" toKeyPath:@"Pages" withMapping:pagesMapping]];
+    
     // Get json file & map Application object
     RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:applicationMapping method:RKRequestMethodGET pathPattern:@"/application" keyPath:@"response.application" statusCodes:[NSIndexSet indexSetWithIndex:200]];
     [objManager addResponseDescriptor:responseDescriptor];
+}
+
+- (void)loadApplication
+{
+    
+    [[RKObjectManager sharedManager] getObjectsAtPath:@"/application" parameters:[[app setApplication] objectForKey:@"Id"] success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        
+        app = mappingResult.dictionary;
+        
+        // Objective-C interprets the string <null> as a NSNull object. Exception is throw when it is used in a method
+        if ([[app objectForKey:@"Pages"] isKindOfClass:[NSNull class]]) {
+            allPages = nil;
+        } else {
+            allPages = [app objectForKey:@"Pages"];
+        }
+
+        [self.tableView reloadData];
+        
+    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        NSLog(@"An error occurred': %@", error);
+    }];
 }
 
 - (void)viewDidLoad
@@ -55,6 +90,7 @@
     self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
     
     [self configureRestKit];
+    [self loadApplication];
     [self insertNewObject];
     
 }
@@ -67,12 +103,12 @@
 
 - (void)insertNewObject
 {
-    if (!_objects) {
-        _objects = [[NSMutableArray alloc] init];
+    for (NSInteger nbpage=0; nbpage<((allPages.count)); ++nbpage) {
+        NSLog(@"%d", nbpage);
+        
+        NSIndexPath *indexPathTable = [NSIndexPath indexPathForRow:0 inSection:0];
+        [self.tableView insertRowsAtIndexPaths:@[indexPathTable] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
-    [_objects insertObject:[NSDate date] atIndex:0];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark - Table View
@@ -84,22 +120,28 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _objects.count;
+    return allPages.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
 
-    NSDate *object = _objects[indexPath.row];
-    cell.textLabel.text = [object description];
+    page = allPages[indexPath.row];
+    
+    if ([[page objectForKey:@"Name"] isKindOfClass:[NSNull class]]) {
+        cell.textLabel.text = @"No Name property";
+    } else {
+        cell.textLabel.text = [[page objectForKey:@"Name"] description];
+    }
+
     return cell;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
-    return YES;
+    return NO;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -140,8 +182,8 @@
 {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSDate *object = _objects[indexPath.row];
-        [[segue destinationViewController] setDetailItem:object];
+        page = allPages[indexPath.row];
+        [[segue destinationViewController] setDetailItem:page];
     }
 }
 

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "Page.h"
 
-@interface Application : NSObject
+@interface Application : NSDictionary
 
 @property (nonatomic, strong) NSString *copyright;
 @property (nonatomic, strong) NSString *description;
@@ -19,6 +19,8 @@
 @property (nonatomic, strong) NSString *guidID;
 
 @property (nonatomic, strong) NSMutableArray *pagesList;
+
+@property (nonatomic) Page *allPages;
 
 -(NSMutableDictionary *)setApplication;
 

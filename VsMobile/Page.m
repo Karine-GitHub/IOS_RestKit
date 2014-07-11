@@ -10,10 +10,10 @@
 
 @implementation Page
 
--(NSMutableDictionary *)setPage:(NSMutableArray *) allPages :(NSIndexPath *) index{
-    NSMutableDictionary *myPage = allPages[index.row];
+-(NSMutableArray *)getAllPages:(NSMutableArray *)ofApp {
+    NSMutableArray *allPages = ofApp;
     
-    return myPage;
+    return allPages;
 }
 
 @end

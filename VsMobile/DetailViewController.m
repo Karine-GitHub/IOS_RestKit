@@ -35,9 +35,10 @@
 {
     // Update the user interface for the detail item.
 
-    NSString *msg = @"<html><center><font color='orange'>There is no content</font></center></html>";
+    NSString *msg = @"<html><center><font color='blue'>There is no content</font></center></html>";
     
     if (self.detailItem) {
+        // Objective-C interprets the string <null> as a NSNull object. Exception is throw when it is used in a method
         if ([[self.detailItem objectForKey:@"HtmlContent"] isKindOfClass:[NSNull class]]) {
             [self.content loadHTMLString:msg baseURL:nil];
         }
@@ -45,7 +46,12 @@
             [self.content loadHTMLString:[self.detailItem objectForKey:@"HtmlContent"] baseURL:nil];
         }
         
-        self.navigationItem.title = [self.detailItem objectForKey:@"Name"];
+        if ([[self.detailItem objectForKey:@"Name"] isKindOfClass:[NSNull class]]) {
+            self.navigationItem.title = @"No Name property";
+        }
+        else {
+            self.navigationItem.title = [self.detailItem objectForKey:@"Name"];
+        }
     }
 }
 
